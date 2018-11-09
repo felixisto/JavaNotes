@@ -6,8 +6,9 @@ public class Strings
     public static void main(String[] args)
     {
     	System.out.println("* * * *\nJAVA String samples\n* * * *");
-    	System.out.println("String uses Unicode UTF-16. It extends the CharSequence interface. Chars in JAVA are 2 bytes long and also Unicode UTF-16.");
+    	System.out.println("String uses Unicode UTF-16. It extends the CharSequence interface. Chars in JAVA are 2 bytes long and also Unicode UTF-16. Invalid index value is represented by -1.");
     	
+        // String operations
         String str = "tester bester tester";
         String tip = " results: ";
         
@@ -26,6 +27,7 @@ public class Strings
         String e = Strings.trimMultipleSpaces(str);
         System.out.println("Trim multiple spaces" + tip + e);
         
+        // String conditions
         str = "why hello there";
         System.out.println("\nTesting string '" + str + "'...");
         String f = Strings.contains(str, "hello") ? "true" : "false";
@@ -40,6 +42,23 @@ public class Strings
         System.out.println("Ends with 'there'?" + tip + j);
         String k = Strings.equalsIgnoreCase(str, "WHY hello THERE") ? "true" : "false";
         System.out.println("Equals ignore case 'WHY hello THERE'?" + tip + k);
+        
+        // String search
+        str = "search me";
+        System.out.println("\nTesting string '" + str + "'...");
+        
+        System.out.println("index of 's' = " + String.valueOf(str.indexOf('s')));
+        System.out.println("index of 'e' = " + String.valueOf(str.indexOf('e')));
+        System.out.println("last index of 'e' = " + String.valueOf(str.lastIndexOf('e')));
+        System.out.println("invalid index value = " + String.valueOf(str.indexOf('z')));
+        
+        // String conversion
+        System.out.println("");
+        System.out.println("String format 'me 2' to string " + String.format("me %d", 2));
+        System.out.println("Int 10 to string " + String.valueOf(10));
+        System.out.println("Double 3.1415 to string " + String.valueOf(3.1415));
+        System.out.println("Double 3.1415 with precision 1 to string " + String.format("%.1f", 3.1415));
+        System.out.println("Boolean true to string " + String.valueOf(true));
     }
     
     static String substring(String string, int start, int end)
