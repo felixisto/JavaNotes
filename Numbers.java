@@ -83,4 +83,18 @@ public class Numbers
             return true;
         }
     }
+    
+    public static boolean willAdditionOverflow_OlderButFaster(int left, int right) 
+    {
+        // This version of @willAdditionOverflow is faster because throwing exceptions in JAVA is very slow
+        if (right < 0 && right != Integer.MIN_VALUE) { return willSubtractionOverflow_OlderButFaster(left, -right); }
+        else { return (~(left ^ right) & (left ^ (left + right))) < 0; }
+    }
+    
+    public static boolean willSubtractionOverflow_OlderButFaster(int left, int right)
+    {
+        // This version of @willSubtractionOverflow is faster because throwing exceptions in JAVA is very slow
+        if (right < 0) { return willAdditionOverflow_OlderButFaster(left, -right); } 
+        else { return ((left ^ right) & (left ^ (left - right))) < 0; }
+    }
 }
