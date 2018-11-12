@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 
 public class Strings
 {
@@ -59,6 +60,42 @@ public class Strings
         System.out.println("Double 3.1415 to string " + String.valueOf(3.1415));
         System.out.println("Double 3.1415 with precision 1 to string " + String.format("%.1f", 3.1415));
         System.out.println("Boolean true to string " + String.valueOf(true));
+        
+        // String encoding
+        str = "Hello there";
+        System.out.println("\nTesting string '" + str + "'...");
+        
+        byte[] stringBytes = str.getBytes();
+        
+        System.out.print("String printed as UTF-8 byte values: ");
+        
+        for (int number = 0; number < stringBytes.length; number++)
+        {
+        	System.out.print(String.valueOf(stringBytes[number]) + " ");
+        }
+        
+        System.out.println("");
+        
+        String stringFromBytes = new String(stringBytes, StandardCharsets.UTF_8);
+        
+        System.out.println("String created from printed UTF-8 bytes: " + stringFromBytes);
+        
+        char[] stringChars = str.toCharArray();
+        
+        System.out.print("String printed as UTF-16 characters: ");
+        
+        for (int number = 0; number < stringChars.length; number++)
+        {
+        	System.out.print(String.valueOf(stringChars[number]) + " ");
+        }
+        
+        System.out.println("");
+        
+        byte firstByteOfString = stringBytes[0];
+        
+        char byteAsChar = (char)firstByteOfString;
+        
+        System.out.println("Byte " + String.valueOf(firstByteOfString) + " converted to char '" + byteAsChar + "'");
     }
     
     static String substring(String string, int start, int end)
