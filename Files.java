@@ -1,5 +1,8 @@
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Files
 {
@@ -34,12 +37,11 @@ public class Files
         if (file != null) {System.out.println("Successfully created file at path " + standartFilePath);}
         else {System.out.println("Failed to create file at path " + standartFilePath); return;}
         
-        Files.deleteFileOnExit(file);
-        
         System.out.println("Ordering JAVA VM to delete this created file as soon as app closes...");
         
-        // File init
+        Files.deleteFileOnExit(file);
         
+        // File init
         System.out.println("\nA file is an abstract representation of file and directory pathnames.");
         
         System.out.println("Attempting to open a file at \"" + standartFilePath + "\"...");
@@ -68,14 +70,23 @@ public class Files
         System.out.println("File usable space= " + String.valueOf(file.getUsableSpace()) + " bytes");
         
         // File reading/writing
+        String data = "Info to be written to this file.";
+        String appendData = "\nNEW LINE WOOOO!";
         
+        System.out.println("\nRead/write operations:");
+        System.out.println("Writing '" + data + "' to the file...");
+        Files.writeToFile(file, data);
+        
+        System.out.println("Appending '" + appendData + "' to the end of the file...");
+        Files.appendToFile(file, appendData);
+        
+        String readData = Files.readFromFile(file);
+        System.out.println("Reading file, data read: '" + readData + "'");
         
         // File removal/moving/renaming
-        String newPathAsString = getBasePath(file.toPath()).toString() + File.separator + tempFileNameNEW;
-        Path newPath = java.nio.file.Paths.get(newPathAsString);
-        
+        //String newPathAsString = getBasePath(file.toPath()).toString() + File.separator + tempFileNameNEW;
+        //Path newPath = java.nio.file.Paths.get(newPathAsString);
         //Files.renameFile(file, newPath);
-        
         //Files.deleteFile(file);
     }
     
@@ -169,5 +180,43 @@ public class Files
     public static void deleteFileOnExit(File file)
     {
         file.deleteOnExit();
+    }
+    
+    public static void writeToFile(File file, String data)
+    {
+    	try {
+            java.nio.file.Files.write(file.toPath(), data.getBytes(), java.nio.file.StandardOpenOption.WRITE);
+    	}
+    	catch (Exception e)
+    	{
+    		
+    	} 
+    }
+    
+    public static void appendToFile(File file, String data)
+    {
+    	try {
+    		List<String> lines = Arrays.asList(data);
+            java.nio.file.Files.write(file.toPath(), lines, java.nio.file.StandardOpenOption.APPEND);
+    	}
+    	catch (Exception e)
+    	{
+    		
+    	} 
+    }
+    
+    public static String readFromFile(File file)
+    {
+    	try {
+    		byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
+    		
+            return new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+    	}
+    	catch (Exception e)
+    	{
+    		
+    	}
+    	
+    	return "";
     }
 }
