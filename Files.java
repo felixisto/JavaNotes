@@ -1,11 +1,14 @@
 import java.io.File;
+import java.nio.file.Path;
 
 public class Files
 {
     public static void main(String[] args)
     {
     	System.out.println("* * * *\nJAVA File samples\n* * * *");
-    	System.out.println("");
+        
+        String tempFileName = "zxcxst.txt";
+        String tempFileNameNEW = "temp.txt";
     	
         String str = "";
         
@@ -13,16 +16,16 @@ public class Files
         String workingDirectory = "";
         
         try {
-        	workingDirectory = new File(".").getAbsolutePath().toString();
+        	workingDirectory = Files.getWorkingDirectory();
+            System.out.println("Current working directory is " + workingDirectory);
         }
         catch (Exception e) {System.out.println("Failed to get the path of the current working directory"); return;}
         
         // File system
-        System.out.println("");
-        System.out.println("File.separator (system default name-separator) = '" + File.separator + "'");
+        System.out.println("\nFile.separator (system default name-separator) = '" + File.separator + "'");
         
         // File creation
-        String standartFilePath = workingDirectory + "Files.java";
+        String standartFilePath = workingDirectory + File.separator + tempFileName;
         
         System.out.println("Attempting to create a file at \"" + standartFilePath + "\"...");
         
@@ -30,6 +33,10 @@ public class Files
         
         if (file != null) {System.out.println("Successfully created file at path " + standartFilePath);}
         else {System.out.println("Failed to create file at path " + standartFilePath); return;}
+        
+        Files.deleteFileOnExit(file);
+        
+        System.out.println("Ordering JAVA VM to delete this created file as soon as app closes...");
         
         // File init
         
@@ -48,19 +55,60 @@ public class Files
         System.out.println("File can write= " + String.valueOf(file.canWrite()));
         System.out.println("File is directory= " + String.valueOf(file.isDirectory()));
         System.out.println("File is file= " + String.valueOf(file.isFile()));
-        
-        // File removal/moving/renaming
-        
-        // File attributes read/write
-        System.out.println("File length= " + file.length());
-        System.out.println("File name= " + file.getName());
-        System.out.println("File path= " + file.getPath());
-        System.out.println("File total space= " + file.getPath());
-        System.out.println("File usable space= " + String.valueOf(file.getTotalSpace()) + " bytes");
-        System.out.println("File path= " + String.valueOf(file.getUsableSpace()) + " bytes");
         System.out.println("File is hidden= " + file.isHidden());
         
+        // File attributes
+        System.out.println("File name= " + file.getName());
+        System.out.println("File extension= " + Files.getFileExtension(file.getName()));
+        System.out.println("File path (as string)= " + file.getPath());
+        System.out.println("File path (as path)= " + file.toPath().toString());
+        System.out.println("File base path= " + Files.getBasePath(file.toPath()));
+        System.out.println("File size= " + String.valueOf(file.length()) + " bytes");
+        System.out.println("File total space= " + String.valueOf(file.getTotalSpace()) + " bytes");
+        System.out.println("File usable space= " + String.valueOf(file.getUsableSpace()) + " bytes");
+        
         // File reading/writing
+        
+        
+        // File removal/moving/renaming
+        String newPathAsString = getBasePath(file.toPath()).toString() + File.separator + tempFileNameNEW;
+        Path newPath = java.nio.file.Paths.get(newPathAsString);
+        
+        //Files.renameFile(file, newPath);
+        
+        //Files.deleteFile(file);
+    }
+    
+    public static String getWorkingDirectory()
+    {
+        Path path = java.nio.file.Paths.get("");
+        return path.toAbsolutePath().toString();
+    }
+    
+    public static String getBasePath(Path path)
+    {
+        try {
+            File f = new File(path.toString());
+            
+            return f.getParentFile().getPath().toString();
+        }
+        catch (Exception e)
+        {
+            
+        }
+        
+        return "";
+    }
+    
+    public static String getFileExtension(String fileName)
+    {
+        String extension = "";
+        
+        int i = fileName.lastIndexOf('.');
+        
+        if (i > 0) { return fileName.substring(i+1); }
+        
+        return "";
     }
     
     public static File createFileAt(String path)
@@ -71,7 +119,7 @@ public class Files
     		return f;
     	}
     	catch (Exception e)
-        {System.out.println("Failed to create file from path, error: " + path);}
+        {System.out.println("Failed to create file from path, error: " + e.toString());}
         
         return null;
     }
@@ -83,8 +131,43 @@ public class Files
     		return f;
     	}
     	catch (Exception e)
-        {System.out.println("Failed to open file from path, error: " + path);}
+        {System.out.println("Failed to open file from path, error: " + e.toString());}
         
         return null;
+    }
+    
+    public static void renameFile(File file, Path destination)
+    {
+        try {
+            java.nio.file.Files.move(file.toPath(), destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            // AVOID file.renameTo(destination), apparently its buggy on windows. Use Files.move() instead!
+        }
+        catch (Exception e)
+        {System.out.println("Failed to rename file, error: " + e.toString());}
+    }
+    
+    public static void moveFile(File file, Path destination)
+    {
+        try {
+            java.nio.file.Files.move(file.toPath(), destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (Exception e)
+        {System.out.println("Failed to move file, error: " + e.toString());}
+    }
+    
+    public static void deleteFile(File file)
+    {
+        try {
+            file.delete();
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
+    
+    public static void deleteFileOnExit(File file)
+    {
+        file.deleteOnExit();
     }
 }
