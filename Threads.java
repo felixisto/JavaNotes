@@ -11,7 +11,7 @@ public class Threads
         // Thread creation
         System.out.println("\nRunnable is an interface for classes that want to be executed by a Thread. When a new thread is created, the Runnable is given and the method run() is used as the execution starting point.");
         System.out.println("A Thread is a thread of execution in a program. It takes a Runnable object and calls it's run() method when the thread is started by start().");
-        System.out.println("\nRunnable myCode = new Runnable() {@Override public void run() {System.out.println(\"Hello from \" + Thread.currentThread().getName());} };");
+        System.out.println("\nRunnable runnable = new Runnable() {@Override public void run() {System.out.println(\"Hello from \" + Thread.currentThread().getName());} };");
         System.out.println("new Thread(runnable).start();");
         
         Runnable runnable = new Runnable() {
