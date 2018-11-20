@@ -3,8 +3,8 @@ public class Threads
 {
     public static void main(String[] args)
     {
-    	System.out.println("* * * *\nJAVA Thread samples\n* * * *");
-        System.out.println("A thread is a parallel code execution that has a beginning and an end. Threads can be paused/resumed. Concurrency is what we call a multi-threaded environment.");
+    	System.out.println("* * * *\nJAVA RxJava samples\n* * * *");
+        System.out.println("http://reactivex.io/documentation/observable.html");
     	
         String str = "";
         
