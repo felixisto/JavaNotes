@@ -16,9 +16,10 @@ public class Security
     	System.out.println("* * * *\nJAVA Security samples\n* * * *");
         
         final String data = "my secret cookie recipe";
-        final String key = "MZygpewJsCpRrfOr";
         
         // Encryption
+        final String key = "MZygpewJsCpRrfOr";
+        
         System.out.println("\nAES 128bit encryption example with key '" + key + "' by using Cipher:");
         
         try {
@@ -35,7 +36,7 @@ public class Security
         }
         
         // One way compression
-        String salt = "my salt";
+        final String salt = "my salt";
         
         System.out.println("\nSha256 one-way compression example with key '" + key + "' and salt '" + salt + "' by using MessageDigest:");
         
