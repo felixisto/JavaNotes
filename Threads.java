@@ -67,6 +67,14 @@ class Model
 		_value = value;
 	}
 	
+	// It is a common mistake to assume that synchronization needs to be used only when writing to shared variables;
+	// this is simply not true.
+    // For each mutable state variable that may be accessed by more than one thread,
+    // all accesses to that variable must be performed with the same lock held.
+    // In this case, we say that the variable is guarded by that lock.
+    // In the absence of synchronization, the compiler, processor,
+    // and runtime can do some downright weird things to the order in which operations appear to execute.
+    // Attempts to reason about the order in which memory actions "must" happen in insufflciently synchronized multithreaded programs will almost certainly be incorrect.
 	synchronized public int getValue()
 	{
 		return _value;
@@ -77,7 +85,7 @@ class Model
 		return _value * Constants.getShared().getMultiplier();
 	}
 	
-	public void setValue(int value)
+	synchronized public void setValue(int value)
 	{
 		_value = value;
 	}
