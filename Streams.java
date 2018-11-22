@@ -32,8 +32,5 @@ public class Streams
         System.out.println("For Output streams only, flush() must be called in order to finish writing the buffered bytes. The flush method of OutputStream does nothing because it does not support buffering.");
         
         System.out.println("Don't forget to close() streams when done with them. Close streams only that you have opened. Closed streams cannot be reopened.");
-        
-        // Read
-        
     }
 }
