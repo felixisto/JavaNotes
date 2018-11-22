@@ -34,6 +34,7 @@ public class Security
             System.out.println("Failed to encrypt or decrypt: " + e.toString());
         }
         
+        // One way compression
         String salt = "my salt";
         
         System.out.println("\nSha256 one-way compression example with key '" + key + "' and salt '" + salt + "' by using MessageDigest:");
