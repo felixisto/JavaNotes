@@ -14,7 +14,8 @@ public class Streams
         System.out.println("InputStream is the superclass of all input stream classes in JAVA. InputStream are usually passed around as arguments to initialize reader objects.");
         System.out.println("InputStreamReader wraps a InputStream (byte stream) and is used as a character stream.");
         System.out.println("BufferedReader wraps a Reader object and uses buffering to efficiently read it.");
-        System.out.println("In most cases, BufferedReader is the best class to use for reading streams/files.");
+        System.out.println("FileReader is a stream used to read directly from file objects. You can open BufferedReader with file readers.");
+        System.out.println("In most cases, BufferedReader is the best class to use for reading streams.");
         
         System.out.println("\nWriter and OutputStream are simply interfaces that define commonly used methods.");
         System.out.println("Writer writes character streams. BufferedWriter is a popular Writer subclass.");
