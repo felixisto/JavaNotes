@@ -219,4 +219,19 @@ public class Files
     	
     	return "";
     }
+    
+    public static byte[] readBytesFromFile(File file) {
+        try {
+            RandomAccessFile file = new RandomAccessFile(file.toPath().getURL().getPath());
+            byte[] data = new byte[(int)file.length()];
+            file.readFully(data);
+            return data;
+        }
+        catch (Exception e)
+    	{
+    		
+    	}
+    	
+    	return new byte[0];
+    }
 }
